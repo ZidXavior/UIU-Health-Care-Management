@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block css %}
+
+{% load static %}
+    {% load django_template_maths %}
+    <link rel="stylesheet" href="{% static 'doctor.css' %}">
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="body-content">
+        {% comment %} {{person.userprofileimage}} {% endcomment %}
+
+        
+        
+        <div class="left-side">
+            <img src="/media/{{patient.userprofileimage}}" alt="">
+            <p>Name: {{ patient.first_name}} {{patient.last_name }}</p>
+            <p>DOB: {{ patient.dob }}</p>
+            <p>Gender: {{ patient.gender }}</p>
+            <p>Email: {{ patient.email }}</p>
+            <a href="{% url 'addprescription' patient.username %}" style="width: 130px;padding: 10px 15px 15px 15px; height: 20px; background: rgb(255, 72, 0); color: #FFF; text-decoration: none; border-radius: 5px; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-weight: 700;
+            "> Add Prescription </a>
+            
+            
+        </div> 
+
+        <div class="right-side">
+
+            <div class="search">
+                <h2>Prescription List</h2>
+            </div>
+            <div class="appoint-list">
+
+                <table class="table">
+                    <tr>
+                        <th scope="col">Serial No.</th>
+                        <th scope="col">Doctor Name</th>
+                        {% comment %} <th scope="col">Problem</th> {% endcomment %}
+                        <th scope="col">Preview</th>
+                    </tr>
+                    {% for prescription in prescriptions %}
+                    <tr>
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td>{{prescription.doctor.first_name}} {{prescription.doctor.last_name}}</td>
+                        {% comment %} <td>{{prescription.id}}</td> {% endcomment %}
+                        <td><a href="{% url 'viewprescription' prescription.id %}" style="width: 90px;padding: 10px 10px 10px 10px; height: 20px; background: rgb(255, 72, 0); color: #FFF; text-decoration: none; border-radius: 5px; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; 
+                            ">view</a></td>
+                    </tr>
+                    {% endfor %} 
+                </table>
+                
+            </div>
+            
+        </div>
+
+    </div>
+
+
+{% endblock %}
